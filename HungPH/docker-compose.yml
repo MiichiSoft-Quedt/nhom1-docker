@@ -1,0 +1,12 @@
+version: "3.9"
+services:
+  php-fpm:
+    image: webdevops/php-nginx:8.1
+    container_name: HungPH
+    working_dir: /app
+    volumes:
+      - ./:/app
+    environment:
+      - WEB_DOCUMENT_ROOT=/app/source/public
+    ports:
+      - "8081:80"
