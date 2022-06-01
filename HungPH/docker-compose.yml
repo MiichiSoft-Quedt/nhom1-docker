@@ -2,7 +2,6 @@ version: "3.9"
 services:
   php-fpm:
     image: webdevops/php-nginx:8.1
-    container_name: HungPH
     working_dir: /app
     volumes:
       - ./:/app
@@ -10,3 +9,22 @@ services:
       - WEB_DOCUMENT_ROOT=/app/source/public
     ports:
       - "8081:80"
+  mysql:
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=
+      - MYSQL_DATABASE=docker_db
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=123456
+    ports:
+      - "8011:80"
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    restart: always
+    ports:
+      - "8088:80"
+    environment:
+      - PMA_HOST=mysql
+      - PMA_PORT=3306
+    depends_on:
+      - mysql
